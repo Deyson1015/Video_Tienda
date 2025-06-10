@@ -33,12 +33,12 @@ public class Pelicula
     /**
      * Lista de copias disponibles
      */
-    private ArrayList<String> disponibles;
+    private ArrayList disponibles;
 
     /**
      * Lista de copias prestadas
      */
-    private ArrayList<String> prestadas;
+    private ArrayList prestadas;
 
     /**
      * N�mero de la siguiente copia a adicionar
@@ -56,10 +56,6 @@ public class Pelicula
      */
     public Pelicula( String unTitulo )
     {
-    	prestadas = new ArrayList<>();
-    	disponibles = new ArrayList<>();
-    	codigoSiguienteCopia = 1;
-    	titulo = unTitulo;
     	
     	//TODO implementar inicializando los atributos
     }
