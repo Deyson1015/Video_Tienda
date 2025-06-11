@@ -48,7 +48,7 @@ public class Copia {
     	
     	tituloPelicula = laPelicula;
     	codigo = elCodigo;
-    	//TODO implementar inicializando los atributos
+    
     }
     
     

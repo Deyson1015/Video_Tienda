@@ -37,11 +37,16 @@ public class VideoTienda
      */
     private ArrayList<Cliente> clientes;
     //TODO declare el atributo
+    private ArrayList<Cliente> clientes;
 
     /**
      * Cat�logo de pel�culas
      */
+<<<<<<< HEAD
     private ArrayList<Pelicla> catalogo;
+=======
+    private ArrayList<Pelicula> catalogo;
+>>>>>>> d4fb6f4af2acdaa95a581bc47d03e0086b323200
     //TODO declare el atributo
     
     //-----------------------------------------------------------------
@@ -57,7 +62,11 @@ public class VideoTienda
     	tarifaDiaria = unaTarifa;
     	clientes = new ArrayList<>();
     	catalogo = new ArrayList<>();
+<<<<<<< HEAD
     	//TODO implementar inicializando los atributos
+=======
+    	
+>>>>>>> d4fb6f4af2acdaa95a581bc47d03e0086b323200
     }
 
     //-----------------------------------------------------------------
@@ -125,11 +134,22 @@ public class VideoTienda
      */
     public void afiliarCliente( String cedula, String nombre, String direccion ) throws Exception
     {
+<<<<<<< HEAD
     	if(buscarCliente(cedula) != null){
     	  throw new Exception("El cliente con númo de cedula" + cedula + "ya esta registrado");
     	}
     	Cliente nuevo = new Cliente(cedula,nombre,direccion);
     	clientes.add(nuevo);
+=======
+    	Cliente clienteExist = buscarCliente(cedula);
+    	if (clienteExist != null) {
+    		throw new Exception("Ya existe un cliente con la este numero de cedula");
+    	}
+    	
+    	Cliente nuevoCliente = new Cliente( cedula, nombre, direccion);
+    	clientes.add(nuevoCliente);
+    		
+>>>>>>> d4fb6f4af2acdaa95a581bc47d03e0086b323200
     }
     	//TODO implementar
 
@@ -141,8 +161,34 @@ public class VideoTienda
      */
     public Cliente buscarCliente( String cedula )
     {
+<<<<<<< HEAD
     	
     	//TODO implementar
+=======
+    	for (Cliente cliente : clientes) {
+    		if (cliente.darCedula().equals(cedula)) {
+    			return cliente;
+    		}
+    	}
+    	return null;
+  
+    }
+    
+    
+    /**
+     * Busca la pelicula atravez de metodo darTitulo.
+     * @param pelicula Pelicula de la tienda. pelicula != null.
+     * @return la pelicula correspondiente al titulo, o null si no hay peliculas con el titulo dato.
+     */
+    public Pelicula buscarPelicula(String titulo)
+    {
+    	for (Pelicula pelicula: catalogo) {
+    		if (pelicula.darTitulo().equals(titulo)) {
+    			return pelicula;
+    		}
+    	}
+    	return null;
+>>>>>>> d4fb6f4af2acdaa95a581bc47d03e0086b323200
     }
 
 
@@ -157,7 +203,16 @@ public class VideoTienda
      */
     public void cargarSaldoCliente( String cedula, int monto ) throws Exception
     {
-    	//TODO implementar
+    	 Cliente cliente = buscarCliente(cedula);
+    	 
+    	 if (monto <= 0) {
+             throw new Exception("La recarga de saldo debe ser mayor que 0.");
+         }
+    	 
+    	 if (cliente == null) {
+    		 throw new Exception("El cliente con la cedula ingresada no existe.");
+    	 }
+    	 cliente.cargarSaldo(monto);	
     }
 
     /**
@@ -173,7 +228,31 @@ public class VideoTienda
      */
     public int alquilarPelicula( String titulo, String cedula ) throws Exception
     {
-    	//TODO implementar
+    	Cliente cliente = buscarCliente(cedula);
+    	Pelicula pelicula = buscarPelicula(titulo);
+    	Copia copia = pelicula.darNumeroDisponible();
+    	if (pelicula == null) {
+    		throw new Exception("La pelicula con el titulo ingresado no existe.");
+    	}
+    	
+		 if (cliente == null) {
+			 throw new Exception("El cliente con la cedula ingresada no existe.");
+		 }
+		 
+		 if (pelicula.agregarCopia() <= 0) {
+			 throw new Exception("No hay copias disponibles de esta pelicula.");
+		 }
+		 
+		 if (cliente.darSaldo() < tarifaDiaria) {
+			 throw new Exception("Saldo insuficiente, valla recargue plata y vuelva.");
+
+		 }
+		 
+		 // Se descuenta el saldo del cliente
+		 cliente.descargarSaldo(tarifaDiaria);
+		 cliente.alquilarCopia(copia); 
+		 pelicula.alquilarCopia();
+   
     }
 
     /**
@@ -187,25 +266,79 @@ public class VideoTienda
      */
     public void devolverCopia( String titulo, int numeroCopia, String cedula ) throws Exception
     {
-    	//TODO implementar
+    	Cliente cliente = buscarCliente(cedula);
+    	Copia copia = cliente.buscarPeliculaAlquilada(cedula, numeroCopia);
+    	Pelicula pelicula = buscarPelicula(titulo);
+    	
+    	if (cliente == null)
+    	{
+    		 throw new Exception("El cliente con la cedula ingresada no existe.");
+    	}
+    	
+    	if(copia == null)
+    	{
+    		throw new Exception("El cliente no tiene alquilada la copia.");
+    	}
+    	
+    	cliente.devolverCopia(cedula, numeroCopia);
+    	
+    	if (pelicula != null)
+    	{
+    		pelicula.devolverCopia(numeroCopia);
+    	}
 
     }
 
+    
+    public void agregarCopiaPelicula( String titulo) throws Exception {
+    	Pelicula pelicula = buscarPelicula(titulo);
+    	
+    	if (pelicula == null)
+    	{
+    		throw new Exception("La pelicula con el titulo ingresado no existe.");
+    	}
+    	pelicula.agregarCopia();
+    	
+    }
 
 
-
+    public void modificarTarifa(int nuevaTarifa) throws Exception {
+    	
+    	if (nuevaTarifa <= 0)
+    	{
+    		throw new Exception("La tarifa debe ser mayor a 0");
+    	}
+    	
+    	tarifaDiaria = nuevaTarifa;   	
+    }
 
     /**
      * Retorna la lista de clientes de la videotienda
      * @return ArrayList la lista de clientes
      */
+<<<<<<< HEAD
     //TODO Definir la signatura del m�todo de acuerdo a la documentaci�n e implementarlo.
 
+=======
+    public ArrayList<Cliente> darClientes()
+    {
+    	return clientes;
+    }
+    
+>>>>>>> d4fb6f4af2acdaa95a581bc47d03e0086b323200
     /**
      * Retorna el cat�logo de pel�culas de la videotienda
      * @return lista de pel�culas existentes. lista != null.
      */
+<<<<<<< HEAD
     //TODO Definir la signatura del m�todo de acuerdo a la documentaci�n e implementarlo.
+=======
+    public ArrayList<Pelicula> darCatalogo()
+    {
+    	return catalogo;
+    }
+    
+>>>>>>> d4fb6f4af2acdaa95a581bc47d03e0086b323200
 
     //-----------------------------------------------------------------
     // Puntos de Extensi�n
