@@ -26,7 +26,7 @@ public class Pelicula {
     /**
      * El **número consecutivo** que se asignará a la próxima copia que se cree para esta película.
      * Sirve para asegurar que cada copia tenga un código único dentro de la misma película.
-     */
+	 */
     private int codigoSiguienteCopia;
 
     /**
@@ -40,7 +40,7 @@ public class Pelicula {
      * que están actualmente **prestadas** a los clientes y no se encuentran en la tienda.
      */
     private ArrayList<Copia> prestadas;
-}
+
 
     //-----------------------------------------------------------------
     // Constructores
@@ -53,10 +53,12 @@ public class Pelicula {
      */
     public Pelicula( String unTitulo )
     {
+
     	titulo = unTitulo;
     	codigoSiguienteCopia = 1;
     	disponibles = new ArrayList<>();
         prestadas = new ArrayList<>();
+
     	
     }
 
