@@ -1,6 +1,6 @@
 /**
  * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ 
- * $Id: Pelicula.java,v 1.1 2005/12/16 15:13:33 k-marcos Exp $
+ * $Id: Cliente.java,v 1.1 2005/12/16 15:13:33 k-marcos Exp $
  * Universidad de los Andes (Bogot� - Colombia)
  * Departamento de Ingenier�a de Sistemas y Computaci�n 
  * Licenciado bajo el esquema Academic Free License version 2.1 
