@@ -1,49 +1,46 @@
 /**
- * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ 
+ * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
  * $Id: Pelicula.java,v 1.1 2005/12/16 15:13:33 k-marcos Exp $
- * Universidad de los Andes (Bogot� - Colombia)
- * Departamento de Ingenier�a de Sistemas y Computaci�n 
- * Licenciado bajo el esquema Academic Free License version 2.1 
- *
- * Proyecto Cupi2 (http://cupi2.uniandes.edu.co)
- * Ejercicio: n4_videotienda
- * Autor: Katalina Marcos - Diciembre 2005
- * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ 
+ * Universidad de los Andes (Bogotá - Colombia)
+ * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
  */
 package uniandes.cupi2.videotienda.mundo;
 
 import java.util.ArrayList;
 
 /**
- * Esta clase representa una pel�cula que se encuentra en la videotienda y
+ * Esta clase representa una película que se encuentra en la videotienda y
  * de la cual puede haber copias disponibles o prestadas.
- */ 
-public class Pelicula
-{
+ */
+public class Pelicula {
 
     //-----------------------------------------------------------------
     // Atributos
     //-----------------------------------------------------------------
 
     /**
-     * T�tulo de la pel�cula
+     * El **título** de la película. Este es un identificador único para cada película.
      */
     private String titulo;
 
     /**
-     * Lista de copias disponibles
-     */
-    private ArrayList disponibles;
-
-    /**
-     * Lista de copias prestadas
-     */
-    private ArrayList prestadas;
-
-    /**
-     * N�mero de la siguiente copia a adicionar
-     */
+     * El **número consecutivo** que se asignará a la próxima copia que se cree para esta película.
+     * Sirve para asegurar que cada copia tenga un código único dentro de la misma película.
+	 */
     private int codigoSiguienteCopia;
+
+    /**
+     * Una **lista** de objetos `Copia` que representan las copias de esta película
+     * que están actualmente **disponibles** para ser alquiladas en la videotienda.
+     */
+    private ArrayList<Copia> disponibles;
+
+    /**
+     * Una **lista** de objetos `Copia` que representan las copias de esta película
+     * que están actualmente **prestadas** a los clientes y no se encuentran en la tienda.
+     */
+    private ArrayList<Copia> prestadas;
+
 
     //-----------------------------------------------------------------
     // Constructores
@@ -56,8 +53,13 @@ public class Pelicula
      */
     public Pelicula( String unTitulo )
     {
+
+    	titulo = unTitulo;
+    	codigoSiguienteCopia = 1;
+    	disponibles = new ArrayList<>();
+        prestadas = new ArrayList<>();
+
     	
-    	//TODO implementar inicializando los atributos
     }
 
     //-----------------------------------------------------------------
@@ -71,15 +73,13 @@ public class Pelicula
      */
     public int agregarCopia( )
     {
-    	int copiaCreada = codigoSiguienteCopia;
-    	
-    	disponibles.add(String.valueOf(copiaCreada));
-    	
+  
+    	Copia nuevaCopia = new Copia(titulo, codigoSiguienteCopia);
+    	disponibles.add(nuevaCopia);
     	codigoSiguienteCopia++;
-    	
-    	return copiaCreada;
+ 
+    	return nuevaCopia.darCodigo();
     
-    	//TODO implementar. Recuerde retornar lo indicado en la documentaci�n. 
     }
 
     /**
@@ -89,10 +89,15 @@ public class Pelicula
      */
     public Copia alquilarCopia( )
     {
-    	int aquilasCopia = codigoSiguienteCopia;
+    	if (disponibles.isEmpty()) {
+    		return null;
+    		
+    	}
     	
-    	prestadas.add(String.valueOf(alquilarCopia));
-    	//TODO implementar. Recuerde retornar lo indicado en la documentaci�n.
+    	Copia copiaAlquilada = disponibles.remove(0);
+    	prestadas.add(copiaAlquilada);
+    	return copiaAlquilada; 
+
     }
 
     /**
@@ -101,12 +106,32 @@ public class Pelicula
      * @param codigoCopia C�digo de la copia que se quiere devolver.
      * @throws Exception Si la copia a devolver no est� prestada.
      */
+    
+    public void devolverCopia(int codigoCopia) throws Exception
+    {
+    	Copia copiaADevolver = null;
+    
+        for (int i = 0; i < prestadas.size(); i++) {
+            Copia copia = prestadas.get(i);
+            if (copia.darCodigo() == codigoCopia) {
+                copiaADevolver = prestadas.remove(i); 
+                break;
+            }
+        }
 
-     //TODO Definir la signatura del m�todo de acuerdo a la documentaci�n e implementarlo.
+    	if (copiaADevolver != null) {
+            disponibles.add(copiaADevolver);
+        } else {
+            throw new Exception("La copia con codigo " + codigoCopia + " no se encuentra prestada.");
+        }
+    }
+
 
     /**
-     * Retorna el t�tulo de la pel�cula.
-     * @return t�tulo de la pel�cula.
+     * Retorna el título de la película.
+     * <br>
+     * **post:** Se ha retornado el título de la película.
+     * @return El título de la película como una cadena de texto.
      */
     public String darTitulo( )
     {
@@ -114,14 +139,27 @@ public class Pelicula
     }
 
     /**
-     * Retorna la cantidad total de copias que existen de la pel�cula en la videotienda
-     * @return entero con la cantidad de copias que existen en la tienda
+     * Retorna la cantidad total de copias de esta película que existen en la videotienda,
+     * incluyendo tanto las copias disponibles como las que están prestadas.
+     * <br>
+     * **post:** Se ha calculado y retornado la suma de copias disponibles y prestadas.
+     * @return Un número entero que representa la cantidad total de copias de la película en la tienda.
      */
-    //TODO Definir la signatura del m�todo de acuerdo a la documentaci�n e implementarlo.
+     public int darTotalCopias()
+     {
+    	 return disponibles.size() + prestadas.size();
+     }
+
 
     /**
-     * Retorna el n�mero de copias disponibles
-     * @return n�mero de copias disponibles
+     * Retorna el número de copias de esta película que están actualmente disponibles para ser alquiladas.
+     * <br>
+     * **post:** Se ha contado y retornado el número de copias en la lista de disponibles.
+     * @return Un número entero que representa la cantidad de copias disponibles para esta película.
      */
-    //TODO Definir la signatura del m�todo de acuerdo a la documentaci�n e implementarlo.
+     public int darNumeroDisponibles()
+     {
+    	 return disponibles.size(); 
+     }
+
 }
