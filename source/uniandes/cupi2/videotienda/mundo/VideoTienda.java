@@ -41,7 +41,7 @@ public class VideoTienda
      * Cat�logo de pel�culas
      */
 
-    private ArrayList<Catalogo> catalogo;
+    private ArrayList<Pelicula> catalogo;
  
     //-----------------------------------------------------------------
     // Constructores
@@ -111,7 +111,7 @@ public class VideoTienda
         }
         catch( Exception e )
         {
-            throw new Exception( "Error al cargar los datos almacenados de pel�culas" );
+            throw new Exception( "Error al cargar los datos almacenados de peliculas" );
         }
     }
 
@@ -127,10 +127,8 @@ public class VideoTienda
     {
 
     	if(buscarCliente(cedula) != null){
-    	  throw new Exception("El cliente con númo de cedula" + cedula + "ya esta registrado");
+    	  throw new Exception("El cliente con el numero de cedula ingresada, ya esta registrado");
     	}
-    	Cliente nuevo = new Cliente(cedula,nombre,direccion);
-    	clientes.add(nuevo);
 
     	Cliente clienteExist = buscarCliente(cedula);
     	if (clienteExist != null) {
@@ -177,8 +175,6 @@ public class VideoTienda
 
     }
 
-
-
     /**
      * Adiciona el monto dado al saldo disponible del cliente. <br>
      * <b>post: </b> el saldo del cliente identificado con la c�dula se increment� con el monto dado. <br>
@@ -216,7 +212,7 @@ public class VideoTienda
     {
     	Cliente cliente = buscarCliente(cedula);
     	Pelicula pelicula = buscarPelicula(titulo);
-    	Copia copia = pelicula.darNumeroDisponible();
+ 
     	if (pelicula == null) {
     		throw new Exception("La pelicula con el titulo ingresado no existe.");
     	}
@@ -225,7 +221,7 @@ public class VideoTienda
 			 throw new Exception("El cliente con la cedula ingresada no existe.");
 		 }
 		 
-		 if (pelicula.agregarCopia() <= 0) {
+		 if (pelicula.darNumeroDisponibles() <= 0) {
 			 throw new Exception("No hay copias disponibles de esta pelicula.");
 		 }
 		 
@@ -233,11 +229,14 @@ public class VideoTienda
 			 throw new Exception("Saldo insuficiente, valla recargue plata y vuelva.");
 
 		 }
+		 Copia copia = pelicula.alquilarCopia();
 		 
 		 // Se descuenta el saldo del cliente
 		 cliente.descargarSaldo(tarifaDiaria);
 		 cliente.alquilarCopia(copia); 
-		 pelicula.alquilarCopia();
+		 
+		 //Retorna el número de la copia alquilada
+		 return copia.darCodigo();
    
     }
 
@@ -299,7 +298,7 @@ public class VideoTienda
     /**
      * Retorna la lista de clientes de la videotienda
      * @return ArrayList la lista de clientes
-
+     */
     public ArrayList<Cliente> darClientes()
     {
     	return clientes; 
@@ -309,8 +308,6 @@ public class VideoTienda
      * Retorna el cat�logo de pel�culas de la videotienda
      * @return lista de pel�culas existentes. lista != null.
      */
-
-
     public ArrayList<Pelicula> darCatalogo()
     {
     	return catalogo;

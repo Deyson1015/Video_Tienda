@@ -1,8 +1,8 @@
 /**
  * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ 
  * $Id: PanelTarifa.java,v 1.1 2005/12/16 15:13:33 k-marcos Exp $ 
- * Universidad de los Andes (Bogotá - Colombia)
- * Departamento de Ingeniería de Sistemas y Computación 
+ * Universidad de los Andes (Bogotï¿½ - Colombia)
+ * Departamento de Ingenierï¿½a de Sistemas y Computaciï¿½n 
  * Licenciado bajo el esquema Academic Free License version 2.1 
  *
  * Proyecto Cupi2 (http://cupi2.uniandes.edu.co)
@@ -36,13 +36,14 @@ public class PanelTarifa extends JPanel implements ActionListener
      * Comando de cambiar Tarifa
      */
     public final static String CAMBIAR = "CAMBIAR";
+    
 
     //-----------------------------------------------------------------
     // Atributos
     //-----------------------------------------------------------------
 
     /**
-     * Ventana principal de la aplicación
+     * Ventana principal de la aplicaciï¿½n
      */
     private InterfazVideotienda ventanaPrincipal;
 
@@ -61,9 +62,10 @@ public class PanelTarifa extends JPanel implements ActionListener
     private JTextField campoTarifa;
 
     /**
-     * Botón para cambiar la tarifa
+     * Botï¿½n para cambiar la tarifa
      */
     private JButton botonTarifa;
+    
 
     //-----------------------------------------------------------------
     // Constructor
@@ -71,7 +73,7 @@ public class PanelTarifa extends JPanel implements ActionListener
 
     /**
      * Crea el panel para el manejo de la tarifa
-     * @param interfaz Ventana principal de la aplicación. interfaz != null.
+     * @param interfaz Ventana principal de la aplicaciï¿½n. interfaz != null.
      */
     public PanelTarifa( InterfazVideotienda interfaz )
     {
@@ -85,11 +87,12 @@ public class PanelTarifa extends JPanel implements ActionListener
         campoTarifa = new JTextField( 10 );
         add( campoTarifa );
 
-        botonTarifa = new JButton( );
+        botonTarifa = new JButton("Cambiar" );
         botonTarifa.setText( "Cambiar" );
         botonTarifa.setActionCommand( CAMBIAR );
         botonTarifa.addActionListener( this );
         add( botonTarifa );
+        
     }
     
     /**
@@ -103,24 +106,24 @@ public class PanelTarifa extends JPanel implements ActionListener
     
     /**
      * Responde a los eventos de los botones del panel
-     * @param evento Evento generado por un botón. evento != null.
+     * @param evento Evento generado por un botï¿½n. evento != null.
      */
     public void actionPerformed( ActionEvent evento )
     {
-        String comando = evento.getActionCommand( );
+        String comando = evento.getActionCommand();
 
         if( comando.equals( CAMBIAR ) )
         {
             try
             {
-                int tarifa = Integer.parseInt( campoTarifa.getText( ) );
+                int tarifa = Integer.parseInt( campoTarifa.getText() );
                 ventanaPrincipal.cambiarTarifa( tarifa );
             }
             catch( NumberFormatException e )
             {
                 JOptionPane.showMessageDialog( this, "La tarifa debe ser un valor entero", "Cambio de Tarifa", JOptionPane.ERROR_MESSAGE );
-                return;
             }
         }
     }
+    
 }

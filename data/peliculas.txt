@@ -4,13 +4,13 @@
 
 total.peliculas = 10
 
-pelicula1.nombre = Transformes la venganza de los caídos
+pelicula1.nombre = Transformes la venganza de los caidos
 pelicula1.copias = 7
 
 pelicula2.nombre = Cars
 pelicula2.copias = 8
 
-pelicula3.nombre = Grandes héroes
+pelicula3.nombre = Grandes heroes
 pelicula3.copias = 5
 
 pelicula4.nombre = Toy Story
