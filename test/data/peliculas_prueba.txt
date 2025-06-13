@@ -1,5 +1,5 @@
 #---------------------------------------------------------
-# Peliculas almacenadas de la vídeotienda
+# Peliculas almacenadas de la vï¿½deotienda
 #---------------------------------------------------------
 
 total.peliculas = 10
@@ -19,17 +19,17 @@ pelicula4.copias = 3
 pelicula5.nombre=Troya
 pelicula5.copias = 1
 
-pelicula6.nombre = Cruzada
+pelicula6.nombre = 365 dias
 pelicula6.copias = 2
 
-pelicula7.nombre = E.T
+pelicula7.nombre = Culpa Tuya
 pelicula7.copias = 5
 
-pelicula8.nombre= El Gran Pez
-pelicula8.copias = 1
+pelicula8.nombre= Culpa Mia
+pelicula8.copias = 2
 
-pelicula9.nombre=StarWars
-pelicula9.copias = 6
+pelicula9.nombre= Cincuenta Sombras de Grey
+pelicula9.copias = 7
 
-pelicula10.nombre=El padrino
-pelicula10.copias = 4
+pelicula10.nombre= Annabelle 2: la creaciÃ³n
+pelicula10.copias = 6
